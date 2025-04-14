@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Perfil;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Usuario;
@@ -105,4 +106,14 @@ class PerfilController extends Controller
             ], 500);
         }
     }
+    public function show($id)
+{
+    $perfil = Perfil::where('user_id', $id)->first();
+
+    if (!$perfil) {
+        return response()->json(['error' => 'Perfil no encontrado'], 404);
+    }
+
+    return response()->json(['perfil' => $perfil]);
+}
 }

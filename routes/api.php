@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\PerfilController;
+use App\Http\Controllers\TipController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\RecuperacionController;
@@ -42,3 +43,14 @@ Route::post('/perfil/{id}/actualizar', [PerfilController::class, 'actualizarPerf
 // Ruta para actualizar solo la foto
 Route::post('/perfil/{id}/actualizar-foto', [PerfilController::class, 'actualizarFoto'])
     ->middleware('auth:sanctum');
+
+
+    use App\Http\Controllers\UserController;
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::put('/users/{id}', [UserController::class, 'update']);
+    });
+    
+
+    Route::get('/tips', [TipController::class, 'index']);
+    Route::post('/tips/create', [TipController::class, 'createTip']);
+    Route::get('/tips/{id}', [TipController::class, 'show']);
